@@ -20,12 +20,18 @@
 @plugin "daisyui" {
     themes: night --default;
 }
-
 .main {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 200px;
-    margin: auto;
+    height: 900px;
     gap: 12px;
+}
+.loginForm {
+    display: flex;
+    flex-direction: column;
+    height: 1000px;
+    gap: 18px;
+    align-items: center;
+    justify-content: center;
 }
