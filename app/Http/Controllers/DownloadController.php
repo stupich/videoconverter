@@ -20,7 +20,7 @@ class DownloadController extends Controller
         $hash = str()->random(20);
 
         match ($format) {
-            'mp4' => exec("yt-dlp $link -S res:1080,ext:mp4:m4a --recode mkv -o storage/$hash"),
+            'mp4' => exec("yt-dlp $link -S res:1080,ext:mp4:m4a --recode mp4 -o storage/$hash"),
             'mkv' => exec("yt-dlp $link -S res:1080,ext:mkv:m4a --recode mkv -o storage/$hash"),
             'mp3' => exec("yt-dlp $link -x --audio-format mp3 -o storage/$hash"),
             'vorbis' => exec("yt-dlp $link -x --audio-format vorbis -o storage/$hash"),
@@ -35,7 +35,10 @@ class DownloadController extends Controller
                 'format' => $format,
             ]);
         }
-        return Inertia::render('app', ['isFileReady' => true, 'hashedFilename' => $hash]);
+        $history = HistoryEntry::where('email', Auth::user()->email)
+            ->latest()
+            ->get();
+        return Inertia::render('app', ['isFileReady' => true, 'hashedFilename' => $hash, 'isLoggedIn' => Auth::check(), 'history' => $history]);
     }
 
     public function downloadFile(Request $request, string $hash)
