@@ -25,7 +25,6 @@ class DownloadController extends Controller
             'mp3' => exec("yt-dlp $link -x --audio-format mp3 -o storage/$hash"),
             'vorbis' => exec("yt-dlp $link -x --audio-format vorbis -o storage/$hash"),
         };
-
         session(['format' => $format, 'filename' => $filename[0]]);
         url("/download/$hash");
         if (Auth::check()) {
