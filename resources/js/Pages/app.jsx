@@ -2,7 +2,7 @@ import Layout from './layout.jsx'
 import { useForm, Link } from '@inertiajs/react'
 
 export default function Welcome({ isFileReady, hashedFilename, isLoggedIn, history, presetLink }) {
-    const { data, setData, post, put, errors, processing } = useForm({
+    const { data, setData, post, errors, processing } = useForm({
         link: presetLink,
         format: 'mp4',
     })
