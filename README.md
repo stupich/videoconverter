@@ -3,7 +3,7 @@ A youtube video downloader and converter, several formats, account system and hi
 
 Made with [Laravel](https://laravel.com), [React](https://react.dev/), [Inertiajs](https://inertiajs.com) and [yt-dlp](https://github.com/yt-dlp/yt-dlp).
 
-![image](https://github.com/user-attachments/assets/6d4de3f9-d318-448f-864c-d8bc45927c1a)
+![image](https://github.com/user-attachments/assets/5d2d180e-c8bd-45d9-9091-cac30fccda35)
 
 # Building and Running
 ```
