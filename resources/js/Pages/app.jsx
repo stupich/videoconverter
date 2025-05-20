@@ -1,5 +1,5 @@
 import Layout from './layout.jsx'
-import { useForm } from '@inertiajs/react'
+import { useForm, Link } from '@inertiajs/react'
 
 export default function Welcome({ isFileReady, hashedFilename, isLoggedIn, history, presetLink }) {
     const { data, setData, post, put, errors, processing } = useForm({
@@ -8,9 +8,9 @@ export default function Welcome({ isFileReady, hashedFilename, isLoggedIn, histo
     })
     function ConvertAgainButton({ link }) {
         return (
-            <a href={`/?link=${link}`} >
+            <Link href={`/?link=${link}`} >
                 <button className="btn btn-primary w-38" >Re-convert</button>
-            </a>
+            </Link>
         )
     }
     function HistoryTable() {
@@ -67,13 +67,21 @@ export default function Welcome({ isFileReady, hashedFilename, isLoggedIn, histo
                 </select>
                 <button className="btn btn-primary w-38" type="submit" disabled={processing}>Convert</button>
             </form>
-            {
-                isFileReady && !processing &&
-                <a href={'/download/' + hashedFilename} target="_blank">
-                    <button className="btn btn-primary w-50">Download</button>
-                </a>
-            }
-            <HistoryTable />
+            <div className="flex flex-col items-center mt-10">
+                {processing &&
+                    <span className="loading loading-spinner loading-xl"></span>
+                }
+                {
+                    isFileReady && !processing &&
+                    <div className="flex flex-col items-center gap-8">
+                        <label>Your file is ready to download!</label>
+                        <a href={'/download/' + hashedFilename} target="_blank">
+                            <button className="btn btn-primary w-50">Download</button>
+                        </a>
+                    </div>
+                }
+                <HistoryTable />
+            </div>
         </Layout >
     )
 }
