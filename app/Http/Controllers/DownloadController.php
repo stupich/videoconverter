@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\HistoryEntry;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
@@ -17,6 +16,8 @@ class DownloadController extends Controller
         $filename = "";
         exec("yt-dlp -s -O \"%(title)s\" $link", $filename);
 
+        $specials = array("/", '\\');
+        $fixed_filename = str_replace($specials, "_", $filename[0]);
         $hash = str()->random(20);
 
         match ($format) {
@@ -25,7 +26,7 @@ class DownloadController extends Controller
             'mp3' => exec("yt-dlp $link -x --audio-format mp3 -o storage/$hash"),
             'vorbis' => exec("yt-dlp $link -x --audio-format vorbis -o storage/$hash"),
         };
-        session(['format' => $format, 'filename' => $filename[0]]);
+        session(['format' => $format, 'filename' => $fixed_filename]);
         url("/download/$hash");
         if (Auth::check()) {
             HistoryEntry::create([
