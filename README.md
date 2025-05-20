@@ -5,7 +5,7 @@ Made with [Laravel](https://laravel.com), [React](https://react.dev/), [Inertiaj
 
 ![image](https://github.com/user-attachments/assets/6d4de3f9-d318-448f-864c-d8bc45927c1a)
 
-# Building and running
+# Building and Running
 ```
 git clone https://github.com/stupich/videoconverter
 cd videoconverter
