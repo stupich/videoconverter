@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomepageController::class, 'prepareHomepage'])->name('app');
 Route::get('/download/{hash}', [DownloadController::class, 'downloadFile']);
 Route::get('/download', function () {
-    return redirect('app');
+    return to_route('app');
 });
 Route::post('/download', [DownloadController::class, 'getVideo']);
 

@@ -24,13 +24,30 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 900px;
+    margin-top: 20%;
     gap: 12px;
+}
+.layout {
+    display: flex;
+    justify-content: right;
+    margin-top: 2%;
+    height: 70px;
+    gap: 12px;
+}
+.historyTable {
+    display: flex;
+    justify-content: center;
+    margin-top: 3%;
+}
+.historyTableLogin {
+    display: flex;
+    justify-content: center;
+    margin-top: 3%;
 }
 .loginForm {
     display: flex;
     flex-direction: column;
-    height: 1000px;
+    margin-top: 24%;
     gap: 18px;
     align-items: center;
     justify-content: center;

@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\HistoryEntry;
+use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
+use Inertia\Inertia;
 
 class DownloadController extends Controller
 {
@@ -17,23 +20,33 @@ class DownloadController extends Controller
 
         $hash = str()->random(20);
 
-        if ($format == "mp3" || $format == "vorbis") {
-            exec("yt-dlp $link -x --audio-format $format -o storage/$hash");
-        } else {
-            exec("yt-dlp $link --recode-video $format -o storage/$hash");
-        }
-
-        Log::info($hash);
+        match ($format) {
+            'mp4' => exec("yt-dlp $link --recode-video mp4 -o storage/$hash"),
+            'mkv' => exec("yt-dlp $link -o storage/$hash"),
+            'mp3' => exec("yt-dlp $link -x --audio-format mp3 -o storage/$hash"),
+            'vorbis' => exec("yt-dlp $link -x --audio-format vorbis -o storage/$hash"),
+        };
 
         session(['format' => $format, 'filename' => $filename[0]]);
         url("/download/$hash");
-        return inertia('app', ['isFileReady' => true, 'hashedFilename' => $hash]);
+        if (Auth::check()) {
+            HistoryEntry::create([
+                'email' => Auth::user()->email,
+                'link' => $link,
+                'videoname' => $filename[0],
+                'format' => $format,
+            ]);
+        }
+        return Inertia::render('app', ['isFileReady' => true, 'hashedFilename' => $hash]);
     }
 
     public function downloadFile(Request $request, string $hash)
     {
         $format = $request->session()->get('format');
         $filename = $request->session()->get('filename');
+        if ($format == 'vorbis') {
+            return response()->download("storage/$hash.ogg", "$filename.ogg");
+        }
         return response()->download("storage/$hash.$format", "$filename.$format");
     }
 }

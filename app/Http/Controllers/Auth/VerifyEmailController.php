@@ -17,7 +17,6 @@ class VerifyEmailController extends Controller
         if ($request->user()->hasVerifiedEmail()) {
             return to_route('app');
         }
-
         if ($request->user()->markEmailAsVerified()) {
             /** @var \Illuminate\Contracts\Auth\MustVerifyEmail $user */
             $user = $request->user();

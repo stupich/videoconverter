@@ -11,6 +11,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Inertia\Inertia;
 
 class AuthController extends Controller
@@ -41,7 +42,7 @@ class AuthController extends Controller
             'password' => Hash::make($request->password),
         ]);
         event(new Registered($user));
-
+        Log::info('Registered a new user');
         Auth::login($user);
 
         return to_route('app');
