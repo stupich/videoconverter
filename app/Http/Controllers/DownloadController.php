@@ -12,7 +12,7 @@ class DownloadController extends Controller
 {
     public function getVideo(Request $request)
     {
-        $link = $request->input('link');
+        $link = $request->validate(['link' => 'required|max:255|starts_with:https://www.youtube.com,http://www.youtube.com'])['link'];
         $format = $request->input('format');
         $filename = "";
         exec("yt-dlp -s -O \"%(title)s\" $link", $filename);

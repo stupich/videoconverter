@@ -2,10 +2,14 @@ import Layout from './layout.jsx'
 import { useForm, Link } from '@inertiajs/react'
 
 export default function Welcome({ isFileReady, hashedFilename, isLoggedIn, history, presetLink }) {
-    const { data, setData, post, errors, processing } = useForm({
+    const { data, setData, post, errors, processing, clearErrors } = useForm({
         link: presetLink,
         format: 'mp4',
     })
+    function handleLinkChange(e) {
+        clearErrors();
+        setData('link', e.target.value);
+    }
     function ConvertAgainButton({ link }) {
         return (
             <Link href={`/?link=${link}`} >
@@ -57,7 +61,7 @@ export default function Welcome({ isFileReady, hashedFilename, isLoggedIn, histo
             <form className="main" onSubmit={submit}>
                 <label className="floating-label">
                     <span>Youtube Link</span>
-                    <input className="input input-primary w-230" type="text" placeholder="Youtube Link" value={data.link} onChange={e => setData('link', e.target.value)} disabled={processing}></input>
+                    <input className="input input-primary w-230" type="text" placeholder="Youtube Link" value={data.link} onChange={e => handleLinkChange(e)} disabled={processing}></input>
                 </label>
                 <select className="select select-primary w-38" value={data.format} onChange={e => setData('format', e.target.value)} disabled={processing}>
                     <option>mp4</option>
@@ -67,6 +71,7 @@ export default function Welcome({ isFileReady, hashedFilename, isLoggedIn, histo
                 </select>
                 <button className="btn btn-primary w-38" type="submit" disabled={processing}>Convert</button>
             </form>
+            {errors.link && <div className="ml-70 mt-2 text-error">{errors.link}</div>}
             <div className="flex flex-col items-center mt-10">
                 {processing &&
                     <span className="loading loading-spinner loading-xl"></span>
