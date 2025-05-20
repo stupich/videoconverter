@@ -6,6 +6,9 @@ Made with [Laravel](https://laravel.com), [React](https://react.dev/), [Inertiaj
 ![image](https://github.com/user-attachments/assets/5d2d180e-c8bd-45d9-9091-cac30fccda35)
 
 # Building and Running
+## Prerequisites
+yt-dlp, composer, Laravel, npm
+## Commands
 ```
 git clone https://github.com/stupich/videoconverter
 cd videoconverter
