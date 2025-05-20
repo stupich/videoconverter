@@ -24,7 +24,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 20%;
+    margin-top: 19%;
     gap: 12px;
 }
 .layout {
@@ -47,7 +47,7 @@
 .loginForm {
     display: flex;
     flex-direction: column;
-    margin-top: 24%;
+    margin-top: 23%;
     gap: 18px;
     align-items: center;
     justify-content: center;

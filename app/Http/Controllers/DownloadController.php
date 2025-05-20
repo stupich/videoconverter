@@ -14,7 +14,6 @@ class DownloadController extends Controller
     {
         $link = $request->input('link');
         $format = $request->input('format');
-
         $filename = "";
         exec("yt-dlp -s -O \"%(title)s\" $link", $filename);
 
